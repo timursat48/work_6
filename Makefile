@@ -1,10 +1,14 @@
-WORK: main.o USD_RUB.o EUR_RUB.o
-	gcc -o convert main.o USD_RUB.o EUR_RUB.o
-main.o: main/main.c
-	gcc -c main/main.c
-USD_RUB.o: usd_in_to_rub/USD_RUB.c
-	gcc -c usd_in_to_rub/USD_RUB.c
-EUR_RUB.o: eur_in_to_rub/EUR_RUB.c
-	gcc -c eur_in_to_rub/EUR_RUB.c
+all: PROGRAM
+PROGRAM: obj/main.o obj/USD_RUB.o obj/EUR_RUB.o
+	gcc -o bin/convert obj/main.o obj/USD_RUB.o obj/EUR_RUB.o
+obj/main.o: scr/main/main.c
+	gcc -c scr/main/main.c -o obj/main.o
+
+obj/USD_RUB.o: scr/usd_in_to_rub/USD_RUB.c
+	gcc -c scr/usd_in_to_rub/USD_RUB.c -o obj/USD_RUB.o
+
+obj/EUR_RUB.o: scr/eur_in_to_rub/EUR_RUB.c
+	gcc -c scr/eur_in_to_rub/EUR_RUB.c -o obj/EUR_RUB.o
+.PHONY: clean
 clean:
-	rm -f *.o WORK
+	rm -f obj/*.o PROGRAM
